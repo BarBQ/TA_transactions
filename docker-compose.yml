@@ -8,6 +8,7 @@ services:
       - ./docker/log:/var/log/container
 
   nginx:
+    container_name: book24_nginx
     image: nginx:latest
     ports:
       - "8000:80" # API
@@ -27,6 +28,7 @@ services:
         max-file: "10"
 
   php:
+    container_name: book24_php
     build: docker/php7
     working_dir: /var/www
     volumes_from:
