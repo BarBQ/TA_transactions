@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  data:
+    image: busybox:latest
+    volumes:
+      - ./../book24_transactions/:/var/www/book24_transactions
+      - ./docker/log:/var/log/container
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:80" # API
+    volumes_from:
+      - php
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./docker/log:/var/log/container
+    links:
+      - php:fpm
+    depends_on:
+      - php
+    logging:
+      driver: json-file
+      options:
+        max-size: "16m"
+        max-file: "10"
+
+  php:
+    build: docker/php7
+    working_dir: /var/www
+    volumes_from:
+      - data
+    logging:
+      driver: json-file
+      options:
+        max-size: "32m"
+        max-file: "10"
