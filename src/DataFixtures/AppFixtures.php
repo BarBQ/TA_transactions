@@ -34,7 +34,11 @@ class AppFixtures extends Fixture
             
             $balance = new Balance();
             $balance->setUser($user);
-            $balance->setAmount(rand(2000, 9000));
+            /*
+             * Храним сумму в копейках, чтобы избежать неточных
+             * вычислений с плавающими числами
+             */
+            $balance->setAmount(rand(2000, 9000) * 100);
             $balance->setCurrency($currency->getCode());
             $manager->persist($balance);
         }

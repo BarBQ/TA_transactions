@@ -26,7 +26,7 @@ class Balance
     private $user;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     private $amount;
 
@@ -36,17 +36,17 @@ class Balance
     private $currency;
     
     /**
-     * @return int|null
+     * @return int
      */
-    public final function getId(): ?int
+    public final function getId(): int
     {
         return $this->id;
     }
     
     /**
-     * @return User|null
+     * @return User
      */
-    public final function getUser(): ?User
+    public final function getUser(): User
     {
         return $this->user;
     }
@@ -64,19 +64,19 @@ class Balance
     }
     
     /**
-     * @return float|null
+     * @return int
      */
-    public final function getAmount(): ?float
+    public final function getAmount(): int
     {
         return $this->amount;
     }
     
     /**
-     * @param float $amount
+     * @param int $amount
      *
      * @return $this
      */
-    public final function setAmount(float $amount): self
+    public final function setAmount(int $amount): self
     {
         $this->amount = $amount;
 
@@ -84,9 +84,9 @@ class Balance
     }
     
     /**
-     * @return string|null
+     * @return string
      */
-    public final function getCurrency(): ?string
+    public final function getCurrency(): string
     {
         return $this->currency;
     }

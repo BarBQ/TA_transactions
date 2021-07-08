@@ -32,7 +32,7 @@ class Transaction
     private $balance_to;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     private $amount;
 
@@ -47,17 +47,17 @@ class Transaction
     private $created_at;
     
     /**
-     * @return int|null
+     * @return int
      */
-    public final function getId(): ?int
+    public final function getId(): int
     {
         return $this->id;
     }
     
     /**
-     * @return Balance|null
+     * @return Balance
      */
-    public final function getBalanceFrom(): ?Balance
+    public final function getBalanceFrom(): Balance
     {
         return $this->balance_from;
     }
@@ -75,9 +75,9 @@ class Transaction
     }
     
     /**
-     * @return Balance|null
+     * @return Balance
      */
-    public final function getBalanceTo(): ?Balance
+    public final function getBalanceTo(): Balance
     {
         return $this->balance_to;
     }
@@ -95,19 +95,19 @@ class Transaction
     }
     
     /**
-     * @return float|null
+     * @return int
      */
-    public final function getAmount(): ?float
+    public final function getAmount(): int
     {
         return $this->amount;
     }
     
     /**
-     * @param float $amount
+     * @param int $amount
      *
      * @return $this
      */
-    public final function setAmount(float $amount): self
+    public final function setAmount(int $amount): self
     {
         $this->amount = $amount;
 
@@ -115,9 +115,9 @@ class Transaction
     }
     
     /**
-     * @return string|null
+     * @return string
      */
-    public final function getCurrency(): ?string
+    public final function getCurrency(): string
     {
         return $this->currency;
     }
@@ -135,9 +135,9 @@ class Transaction
     }
     
     /**
-     * @return int|null
+     * @return int
      */
-    public final function getCreatedAt(): ?int
+    public final function getCreatedAt(): int
     {
         return $this->created_at;
     }
