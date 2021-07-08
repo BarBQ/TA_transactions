@@ -11,7 +11,7 @@ services:
     container_name: book24_nginx
     image: nginx:latest
     ports:
-      - "8000:80" # API
+      - "8010:80" # API
     volumes_from:
       - php
     volumes:
@@ -26,6 +26,23 @@ services:
       options:
         max-size: "16m"
         max-file: "10"
+    networks:
+      book24net:
+        ipv4_address: 192.168.12.10
+
+  db:
+    container_name: book24_mysql
+    image: mysql:5
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: book24
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      book24net:
+        ipv4_address: 192.168.12.11
 
   php:
     container_name: book24_php
@@ -38,3 +55,22 @@ services:
       options:
         max-size: "32m"
         max-file: "10"
+    networks:
+      book24net:
+        ipv4_address: 192.168.12.12
+
+  phpmyadmin:
+    container_name: book24_phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8011:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      book24net:
+        ipv4_address: 192.168.12.13
+
+networks:
+  book24net:
+    external: true
