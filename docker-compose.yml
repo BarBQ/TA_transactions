@@ -29,7 +29,7 @@ services:
 
   php:
     container_name: book24_php
-    build: docker/php7
+    build: docker/php
     working_dir: /var/www
     volumes_from:
       - data
