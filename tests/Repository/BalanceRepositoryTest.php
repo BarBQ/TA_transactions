@@ -68,7 +68,7 @@ class BalanceRepositoryTest extends KernelTestCase
 
         try {
             $this->balanceRepository->withdrawal($balance, $balance->getAmount() + 100);
-        }catch (\Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->assertEquals($exception->getMessage(), "Amount of Balance From is less then transaction amount");
         }
     }
