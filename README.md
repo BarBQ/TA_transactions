@@ -9,7 +9,7 @@
     docker-compose build
     docker-compose up -d
 
-Установливаем зависимости
+Устанавливаем зависимости
 
     docker exec -i book24_php bash -c "cd /var/www/book24_transactions && composer install"
 
