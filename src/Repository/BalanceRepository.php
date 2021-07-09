@@ -31,9 +31,9 @@ class BalanceRepository extends ServiceEntityRepository
      * @return Balance
      * @throws \Exception
      */
-    final public function withdrawall(Balance $balance, int $amount): Balance
+    final public function withdrawal(Balance $balance, int $amount): Balance
     {
-        if (!$this->isBalanceCoverWithdrawall($balance, $amount)) {
+        if (!$this->isBalanceCoverWithdrawal($balance, $amount)) {
             throw new \Exception("Amount of Balance From is less then transaction amount");
         }
 
@@ -59,7 +59,7 @@ class BalanceRepository extends ServiceEntityRepository
      * @param int $amount
      * @return bool
      */
-    final private function isBalanceCoverWithdrawall(Balance $balance, int $amount): bool
+    final private function isBalanceCoverWithdrawal(Balance $balance, int $amount): bool
     {
         return $balance->getAmount() >= $amount;
     }

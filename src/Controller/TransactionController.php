@@ -63,7 +63,7 @@ class TransactionController extends AbstractController
         $entityManager->getConnection()->beginTransaction();
 
         try {
-            $balanceFrom = $balanceRepository->withdrawall($dto->getBalanceFrom(), $dto->getAmount());
+            $balanceFrom = $balanceRepository->withdrawal($dto->getBalanceFrom(), $dto->getAmount());
             $balanceTo = $balanceRepository->enroll($dto->getBalanceTo(), $dto->getAmount());
             $transaction = $transactionRepository->createNewTransaction($dto);
 
