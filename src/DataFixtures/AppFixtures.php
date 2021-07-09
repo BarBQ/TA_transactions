@@ -9,7 +9,6 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Money\Currency;
 
 /**
  * Class AppFixtures
@@ -20,10 +19,9 @@ class AppFixtures extends Fixture
     /**
      * @param ObjectManager $manager
      */
-    public final function load(ObjectManager $manager): void
+    final public function load(ObjectManager $manager): void
     {
         $faker    = Factory::create();
-        $currency = new Currency('RUB');
         
         for ($i = 0; $i < 2; $i++) {
             $userName = sprintf("%s %s", $faker->firstName, $faker->lastName);
@@ -39,7 +37,7 @@ class AppFixtures extends Fixture
              * вычислений с плавающими числами
              */
             $balance->setAmount(rand(2000, 9000) * 100);
-            $balance->setCurrency($currency->getCode());
+            $balance->setCurrency('RUB');
             $manager->persist($balance);
         }
         

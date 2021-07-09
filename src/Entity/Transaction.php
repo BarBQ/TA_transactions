@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TransactionRepository::class)
+ * @ORM\Table(name="transaction")
+ * @ORM\HasLifecycleCallbacks
  */
 class Transaction
 {
@@ -22,14 +24,16 @@ class Transaction
     /**
      * @ORM\OneToOne(targetEntity=Balance::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $balance_from;
+    private $balance_from_id;
 
     /**
      * @ORM\OneToOne(targetEntity=Balance::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $balance_to;
+    private $balance_to_id;
 
     /**
      * @ORM\Column(type="integer")
@@ -45,51 +49,59 @@ class Transaction
      * @ORM\Column(type="integer")
      */
     private $created_at;
+
+    /**
+     * Gets triggered only on insert
+
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->created_at = (new \DateTime("now"))->getTimestamp();
+    }
     
     /**
      * @return int
      */
-    public final function getId(): int
+    final public function getId(): int
     {
         return $this->id;
     }
-    
+
     /**
-     * @return Balance
+     * @return int
      */
-    public final function getBalanceFrom(): Balance
+    final public function getBalanceFrom(): int
     {
-        return $this->balance_from;
+        return $this->balance_from_id;
     }
-    
+
     /**
-     * @param Balance $balance_from
-     *
+     * @param Balance $balance
      * @return $this
      */
-    public final function setBalanceFrom(Balance $balance_from): self
+    final public function setBalanceFrom(Balance $balance): self
     {
-        $this->balance_from = $balance_from;
+        $this->balance_from_id = $balance->getId();
 
         return $this;
     }
-    
+
     /**
-     * @return Balance
+     * @return int
      */
-    public final function getBalanceTo(): Balance
+    final public function getBalanceTo(): int
     {
-        return $this->balance_to;
+        return $this->balance_to_id;
     }
-    
+
     /**
-     * @param Balance $balance_to
-     *
+     * @param Balance $balance
      * @return $this
      */
-    public final function setBalanceTo(Balance $balance_to): self
+    final public function setBalanceTo(Balance $balance): self
     {
-        $this->balance_to = $balance_to;
+        $this->balance_to_id = $balance->getId();
 
         return $this;
     }
@@ -97,17 +109,16 @@ class Transaction
     /**
      * @return int
      */
-    public final function getAmount(): int
+    final public function getAmount(): int
     {
         return $this->amount;
     }
-    
+
     /**
      * @param int $amount
-     *
      * @return $this
      */
-    public final function setAmount(int $amount): self
+    final public function setAmount(int $amount): self
     {
         $this->amount = $amount;
 
@@ -117,7 +128,7 @@ class Transaction
     /**
      * @return string
      */
-    public final function getCurrency(): string
+    final public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -127,19 +138,20 @@ class Transaction
      *
      * @return $this
      */
-    public final function setCurrency(string $currency): self
+    final public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
 
         return $this;
     }
-    
+
     /**
-     * @return int
+     * @return string
+     * @throws \Exception
      */
-    public final function getCreatedAt(): int
+    final public function getCreatedAt(): string
     {
-        return $this->created_at;
+        return \DateTime::createFromFormat('U', (string)$this->created_at)->format(DATE_ATOM);
     }
     
     /**
@@ -147,7 +159,7 @@ class Transaction
      *
      * @return $this
      */
-    public final function setCreatedAt(int $created_at): self
+    final public function setCreatedAt(int $created_at): self
     {
         $this->created_at = $created_at;
 

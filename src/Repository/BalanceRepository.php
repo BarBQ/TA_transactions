@@ -16,37 +16,51 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BalanceRepository extends ServiceEntityRepository
 {
+    /**
+     * BalanceRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Balance::class);
     }
 
-    // /**
-    //  * @return Balance[] Returns an array of Balance objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Balance $balance
+     * @param int $amount
+     * @return Balance
+     * @throws \Exception
+     */
+    final public function withdrawall(Balance $balance, int $amount): Balance
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        if (!$this->isBalanceCoverWithdrawall($balance, $amount)) {
+            throw new \Exception("Amount of Balance From is less then transaction amount");
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Balance
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $balance->setAmount($balance->getAmount() - $amount);
+
+        return $balance;
     }
-    */
+
+    /**
+     * @param Balance $balance
+     * @param int $amount
+     * @return Balance
+     */
+    final public function enroll(Balance $balance, int $amount): Balance
+    {
+        $balance->setAmount($balance->getAmount() + $amount);
+
+        return $balance;
+    }
+
+    /**
+     * @param Balance $balance
+     * @param int $amount
+     * @return bool
+     */
+    final private function isBalanceCoverWithdrawall(Balance $balance, int $amount): bool
+    {
+        return $balance->getAmount() >= $amount;
+    }
 }

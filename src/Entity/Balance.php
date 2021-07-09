@@ -38,7 +38,7 @@ class Balance
     /**
      * @return int
      */
-    public final function getId(): int
+    final public function getId(): int
     {
         return $this->id;
     }
@@ -46,7 +46,7 @@ class Balance
     /**
      * @return User
      */
-    public final function getUser(): User
+    final public function getUser(): User
     {
         return $this->user;
     }
@@ -56,7 +56,7 @@ class Balance
      *
      * @return $this
      */
-    public final function setUser(User $user): self
+    final public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -66,7 +66,7 @@ class Balance
     /**
      * @return int
      */
-    public final function getAmount(): int
+    final public function getAmount(): int
     {
         return $this->amount;
     }
@@ -76,7 +76,7 @@ class Balance
      *
      * @return $this
      */
-    public final function setAmount(int $amount): self
+    final public function setAmount(int $amount): self
     {
         $this->amount = $amount;
 
@@ -86,7 +86,7 @@ class Balance
     /**
      * @return string
      */
-    public final function getCurrency(): string
+    final public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -96,7 +96,7 @@ class Balance
      *
      * @return $this
      */
-    public final function setCurrency(string $currency): self
+    final public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
 

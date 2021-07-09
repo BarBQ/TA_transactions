@@ -27,7 +27,7 @@ class User
     /**
      * @return int|null
      */
-    public final function getId(): ?int
+    final public function getId(): ?int
     {
         return $this->id;
     }
@@ -35,7 +35,7 @@ class User
     /**
      * @return string|null
      */
-    public final function getName(): ?string
+    final public function getName(): ?string
     {
         return $this->name;
     }
@@ -45,7 +45,7 @@ class User
      *
      * @return $this
      */
-    public final function setName(string $name): self
+    final public function setName(string $name): self
     {
         $this->name = $name;
 

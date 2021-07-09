@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Transaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\DTO\CreateTransactionDTO;
 
 /**
  * @method Transaction|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,32 +22,30 @@ class TransactionRepository extends ServiceEntityRepository
         parent::__construct($registry, Transaction::class);
     }
 
-    // /**
-    //  * @return Transaction[] Returns an array of Transaction objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param string $sort
+     * @return Transaction[] Returns an array of Transaction objects
+     */
+    final public function findAllSorted(string $sort = 'DESC'): array
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('t.id', $sort)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Transaction
+    /**
+     * @param CreateTransactionDTO $dto
+     * @return Transaction
+     */
+    final public function createNewTransaction(CreateTransactionDTO $dto): Transaction
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $transaction = new Transaction();
+        $transaction->setBalanceFrom($dto->getBalanceFrom());
+        $transaction->setBalanceTo($dto->getBalanceTo());
+        $transaction->setAmount($dto->getAmount());
+        $transaction->setCurrency('RUB');
+
+        return $transaction;
     }
-    */
 }
