@@ -18,7 +18,7 @@
     php bin/console doctrine:migrations:migrate
     php bin/console doctrine:fixtures:load
 
-или используя контейнер Docker
+или, используя контейнер Docker
     
     docker exec -i book24_php bash -c "cd /var/www/book24_transactions && php bin/console doctrine:migrations:migrate"
     docker exec -i book24_php bash -c "cd /var/www/book24_transactions && php bin/console doctrine:fixtures:load"
@@ -32,6 +32,15 @@ PhpMyAdmin будет доступен по адресу (для подключ�
 root/password)
 
     http://localhost:8011
+
+## Запуск тестов
+
+    php bin/phpunit
+
+или, используя контейнер Docker
+
+    docker exec -i book24_php bash -c "cd /var/www/book24_transactions && php bin/phpunit"
+    
 
 ## Примечания
 
